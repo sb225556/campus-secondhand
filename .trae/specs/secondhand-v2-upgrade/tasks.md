@@ -110,7 +110,7 @@
   - 在云开发控制台验证云函数状态
   - 使用真机扫码测试
 
-## Task 8: 提交代码到 GitHub
+## ✅ Task 8: 提交代码到 GitHub [x]
 - **Priority**: medium
 - **Depends On**: Task 7
 - **Description**:
