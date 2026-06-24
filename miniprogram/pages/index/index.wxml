@@ -1,0 +1,63 @@
+<view class="container">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索二手物品" value="{{keyword}}" bindinput="onKeywordInput" bindconfirm="onSearch" />
+    <view class="search-btn" bindtap="onSearch">搜索</view>
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x>
+    <view class="category-list">
+      <view 
+        class="category-item {{currentCategory === '' ? 'active' : ''}}" 
+        bindtap="onCategoryChange" 
+        data-category=""
+      >
+        全部
+      </view>
+      <view 
+        wx:for="{{categories}}" 
+        wx:key="name"
+        class="category-item {{currentCategory === item.name ? 'active' : ''}}" 
+        bindtap="onCategoryChange" 
+        data-category="{{item.name}}"
+      >
+        {{item.name}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <scroll-view 
+    class="item-list" 
+    scroll-y 
+    bindscrolltolower="onLoadMore"
+    bindscrolltoupper="onRefresh"
+    lower-threshold="100"
+    upper-threshold="50"
+  >
+    <view class="item-card" wx:for="{{items}}" wx:key="_id" bindtap="onItemTap" data-id="{{item._id}}">
+      <image class="item-image" src="{{item.images[0] || '../../images/default-goods-image.png'}}" mode="aspectFill" />
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-category">{{item.category}}</view>
+        <view class="item-price">¥{{item.price}}</view>
+        <view class="item-publisher">
+          <image class="publisher-avatar" src="{{item.userAvatar || '../../images/avatar.png'}}" />
+          <text class="publisher-name">{{item.userName}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="loading-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <view class="no-more" wx:if="{{!loading && !hasMore}}">
+      <text>没有更多了</text>
+    </view>
+
+    <view class="empty-state" wx:if="{{items.length === 0 && !loading}}">
+      <image class="empty-icon" src="../../images/default-goods-image.png" />
+      <text class="empty-text">暂无二手物品</text>
+      <text class="empty-hint">快去发布你的第一件物品吧</text>
+    </view>
+  </scroll-view>
+</view>

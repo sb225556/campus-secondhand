@@ -1,0 +1,69 @@
+<view class="container">
+  <swiper class="image-swiper" indicator-dots autoplay circular>
+    <swiper-item wx:for="{{item.images}}" wx:key="index">
+      <image class="swiper-image" src="{{item}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+
+  <view class="item-info">
+    <view class="item-header">
+      <view class="item-title">{{item.name}}</view>
+      <view class="item-price">¥{{item.price}}</view>
+    </view>
+
+    <view class="item-meta">
+      <view class="meta-item">
+        <text class="meta-label">分类</text>
+        <text class="meta-value">{{item.category}}</text>
+      </view>
+      <view class="meta-item">
+        <text class="meta-label">状态</text>
+        <text class="meta-value {{item.status === 'available' ? 'available' : 'sold'}}">
+          {{item.status === 'available' ? '在售' : '已售出'}}
+        </text>
+      </view>
+    </view>
+
+    <view class="item-divider"></view>
+
+    <view class="section">
+      <text class="section-title">物品描述</text>
+      <text class="section-content">{{item.description}}</text>
+    </view>
+
+    <view class="item-divider"></view>
+
+    <view class="section">
+      <text class="section-title">发布者</text>
+      <view class="publisher-info">
+        <image class="publisher-avatar" src="{{item.userAvatar || '../../images/avatar.png'}}" />
+        <text class="publisher-name">{{item.userName}}</text>
+      </view>
+    </view>
+
+    <view class="item-divider"></view>
+
+    <view class="section">
+      <text class="section-title">联系方式</text>
+      <view class="contact-info">
+        <text class="contact-value">{{item.contact}}</text>
+        <text class="contact-copy" bindtap="onCopyContact">复制</text>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">发布时间</text>
+      <text class="section-content">{{formatTime(item.createTime)}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="bottom-bar">
+  <view class="action-btn" bindtap="onToggleFavorite">
+    <view class="heart-icon {{isFavorite ? 'active' : ''}}"></view>
+    <text class="action-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
+  </view>
+  <view class="action-btn primary" bindtap="onContact">
+    <text class="action-text">联系发布者</text>
+  </view>
+</view>

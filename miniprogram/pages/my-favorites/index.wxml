@@ -1,0 +1,33 @@
+<view class="container">
+  <scroll-view 
+    class="item-list" 
+    scroll-y 
+    bindscrolltolower="onLoadMore"
+    lower-threshold="100"
+  >
+    <view class="item-card" wx:for="{{items}}" wx:key="_id" bindtap="onItemTap" data-id="{{item._id}}">
+      <image class="item-image" src="{{item.images[0] || '../../images/default-goods-image.png'}}" mode="aspectFill" />
+      <view class="item-info">
+        <view class="item-name">{{item.name}}</view>
+        <view class="item-category">{{item.category}}</view>
+        <view class="item-price">¥{{item.price}}</view>
+      </view>
+      <view class="remove-btn" bindtap="onRemove" data-id="{{item._id}}">
+        <text>取消收藏</text>
+      </view>
+    </view>
+
+    <view class="loading-more" wx:if="{{loading}}">
+      <text>加载中...</text>
+    </view>
+
+    <view class="no-more" wx:if="{{!loading && !hasMore}}">
+      <text>没有更多了</text>
+    </view>
+
+    <view class="empty-state" wx:if="{{items.length === 0 && !loading}}">
+      <image class="empty-icon" src="../../images/default-goods-image.png" />
+      <text class="empty-text">暂无收藏记录</text>
+    </view>
+  </scroll-view>
+</view>

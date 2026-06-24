@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/publish/index",
+    "pages/mine/index",
+    "pages/detail/index",
+    "pages/my-items/index",
+    "pages/my-favorites/index"
+  ],
+  "window": {
+    "backgroundColor": "#F5F5F5",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTitleText": "校园二手物",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#07C160",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/publish/index",
+        "text": "发布",
+        "iconPath": "images/icons/goods.png",
+        "selectedIconPath": "images/icons/goods-active.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "images/icons/usercenter.png",
+        "selectedIconPath": "images/icons/usercenter-active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "cloud": true
+}

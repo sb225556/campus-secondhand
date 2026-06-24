@@ -1,0 +1,61 @@
+<view class="container">
+  <view class="form-item">
+    <text class="form-label">物品名称</text>
+    <input class="form-input" placeholder="请输入物品名称" value="{{formData.name}}" bindinput="onNameInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="form-label">物品分类</text>
+    <view class="category-picker">
+      <picker mode="selector" range="{{categories}}" bindchange="onCategoryChange">
+        <view class="picker-value">
+          {{formData.category || '请选择分类'}}
+          <image class="picker-arrow" src="../../images/arrow.svg" />
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="form-item">
+    <text class="form-label">物品价格</text>
+    <view class="price-input-wrap">
+      <text class="price-symbol">¥</text>
+      <input class="form-input price-input" type="digit" placeholder="请输入价格" value="{{formData.price}}" bindinput="onPriceInput" />
+    </view>
+  </view>
+
+  <view class="form-item">
+    <text class="form-label">物品描述</text>
+    <textarea class="form-textarea" placeholder="请详细描述物品的成色、使用情况等" value="{{formData.description}}" bindinput="onDescriptionInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="form-label">联系方式</text>
+    <input class="form-input" placeholder="请输入微信号或手机号" value="{{formData.contact}}" bindinput="onContactInput" />
+  </view>
+
+  <view class="form-item">
+    <text class="form-label">上传图片</text>
+    <view class="image-upload">
+      <view class="image-list">
+        <image 
+          wx:for="{{formData.images}}" 
+          wx:key="index" 
+          class="image-item" 
+          src="{{item}}" 
+          mode="aspectFill"
+          bindlongpress="onDeleteImage"
+          data-index="{{index}}"
+        />
+        <view class="upload-btn" wx:if="{{formData.images.length < 6}}" bindtap="onUploadImage">
+          <text class="upload-icon">+</text>
+        </view>
+      </view>
+      <text class="upload-hint">最多上传6张图片，长按可删除</text>
+    </view>
+  </view>
+
+  <view class="submit-btn" bindtap="onSubmit">
+    <text>发布物品</text>
+  </view>
+</view>
