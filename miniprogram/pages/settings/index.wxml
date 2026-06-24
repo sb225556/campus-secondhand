@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="section-title">通用</view>
+  <view class="setting-list">
+    <view class="setting-item" bindtap="onClearCache">
+      <view class="setting-icon">🧹</view>
+      <view class="setting-content">
+        <view class="setting-name">清除缓存</view>
+        <view class="setting-desc">清除本地缓存数据</view>
+      </view>
+      <view class="setting-arrow">›</view>
+    </view>
+
+    <view class="setting-item" bindtap="onThemeChange">
+      <view class="setting-icon">🎨</view>
+      <view class="setting-content">
+        <view class="setting-name">主题切换</view>
+        <view class="setting-desc">当前：{{currentTheme === 'light' ? '浅色模式' : '深色模式'}}</view>
+      </view>
+      <view class="setting-arrow">›</view>
+    </view>
+  </view>
+
+  <view class="section-title">其他</view>
+  <view class="setting-list">
+    <view class="setting-item" bindtap="onFeedback">
+      <view class="setting-icon">💬</view>
+      <view class="setting-content">
+        <view class="setting-name">意见反馈</view>
+        <view class="setting-desc">帮助我们做得更好</view>
+      </view>
+      <view class="setting-arrow">›</view>
+    </view>
+
+    <view class="setting-item" bindtap="onAbout">
+      <view class="setting-icon">ℹ️</view>
+      <view class="setting-content">
+        <view class="setting-name">关于我们</view>
+        <view class="setting-desc">校园二手物交换</view>
+      </view>
+      <view class="setting-arrow">›</view>
+    </view>
+  </view>
+
+  <view class="version-info">
+    <text class="version-text">版本 v1.2.0</text>
+  </view>
+</view>

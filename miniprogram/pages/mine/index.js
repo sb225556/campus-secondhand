@@ -46,4 +46,10 @@ Page({
       showCancel: false,
     });
   },
+
+  onSettings() {
+    wx.navigateTo({
+      url: '/pages/settings/index',
+    });
+  },
 });

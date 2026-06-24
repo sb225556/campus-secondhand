@@ -1,6 +1,6 @@
 <view class="container">
   <swiper class="image-swiper" indicator-dots autoplay circular>
-    <swiper-item wx:for="{{item.images}}" wx:key="index">
+    <swiper-item wx:for="{{tempImages.length > 0 ? tempImages : item.images}}" wx:key="index">
       <image class="swiper-image" src="{{item}}" mode="aspectFill" />
     </swiper-item>
   </swiper>

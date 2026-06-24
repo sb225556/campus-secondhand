@@ -26,6 +26,12 @@
       <image class="menu-arrow" src="../../images/arrow.svg" />
     </view>
     <view class="menu-divider"></view>
+    <view class="menu-item" bindtap="onSettings">
+      <image class="menu-icon" src="../../images/icons/usercenter.png" />
+      <text class="menu-text">设置</text>
+      <image class="menu-arrow" src="../../images/arrow.svg" />
+    </view>
+    <view class="menu-divider"></view>
     <view class="menu-item" bindtap="onAbout">
       <image class="menu-icon" src="../../images/setting.svg" />
       <text class="menu-text">关于我们</text>
@@ -34,6 +40,6 @@
   </view>
 
   <view class="version-info">
-    <text>校园二手物交换 v1.0.0</text>
+    <text>校园二手物交换 v1.2.0</text>
   </view>
 </view>

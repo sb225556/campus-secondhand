@@ -2,6 +2,7 @@ const app = getApp();
 
 Page({
   data: {
+    userInfo: {},
     keyword: '',
     currentCategory: '',
     currentTimeRange: 'all',
@@ -33,6 +34,9 @@ Page({
   },
 
   onShow() {
+    this.setData({
+      userInfo: app.globalData.userInfo || {},
+    });
     this.loadItems();
   },
 
@@ -50,6 +54,9 @@ Page({
       if (result.result.success) {
         app.globalData.openid = result.result.openid;
         app.globalData.userInfo = result.result.userInfo;
+        this.setData({
+          userInfo: result.result.userInfo || {},
+        });
       }
     } catch (err) {
       console.error('登录失败:', err);
@@ -196,6 +203,25 @@ Page({
     const itemId = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: `/pages/detail/index?id=${itemId}`,
+    });
+  },
+
+  onUserTap() {
+    wx.switchTab({
+      url: '/pages/mine/index',
+    });
+  },
+
+  onPullDownRefresh() {
+    this.setData({
+      pageNum: 1,
+      items: [],
+      hasMore: true,
+    });
+    this.loadItems().then(() => {
+      wx.stopPullDownRefresh();
+    }).catch(() => {
+      wx.stopPullDownRefresh();
     });
   },
 });

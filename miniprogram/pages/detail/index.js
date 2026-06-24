@@ -3,6 +3,7 @@ const app = getApp();
 Page({
   data: {
     item: {},
+    tempImages: [],
     isFavorite: false,
     itemId: '',
   },
@@ -28,6 +29,7 @@ Page({
           item: result.result.item,
           isFavorite: result.result.isFavorite,
         });
+        this.loadTempImages(result.result.item.images || []);
       } else {
         wx.showToast({
           title: result.result.error || '获取失败',
@@ -103,5 +105,39 @@ Page({
     const hour = String(date.getHours()).padStart(2, '0');
     const minute = String(date.getMinutes()).padStart(2, '0');
     return `${year}-${month}-${day} ${hour}:${minute}`;
+  },
+
+  async loadTempImages(fileList) {
+    if (!fileList || fileList.length === 0) {
+      this.setData({ tempImages: [] });
+      return;
+    }
+
+    try {
+      const result = await wx.cloud.callFunction({
+        name: 'getImageUrl',
+        data: { fileList },
+      });
+
+      if (result.result && result.result.success) {
+        this.setData({
+          tempImages: result.result.tempFileList || fileList,
+        });
+      } else {
+        this.setData({ tempImages: fileList });
+      }
+    } catch (err) {
+      console.error('获取图片临时链接失败:', err);
+      this.setData({ tempImages: fileList });
+    }
+  },
+
+  onShareAppMessage() {
+    const item = this.data.item || {};
+    return {
+      title: item.name || '校园二手物',
+      path: `/pages/detail/index?id=${this.data.itemId}`,
+      imageUrl: (this.data.tempImages && this.data.tempImages[0]) || (item.images && item.images[0]) || '',
+    };
   },
 });

@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "校园二手物",
-  "navigationStyle": "default"
+  "navigationStyle": "default",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
 }

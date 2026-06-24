@@ -1,4 +1,13 @@
 <view class="container">
+  <view class="user-bar" bindtap="onUserTap">
+    <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/avatar.png'}}" />
+    <view class="user-info">
+      <view class="user-name">{{userInfo.nickName || '点击登录'}}</view>
+      <view class="user-desc">欢迎来到校园二手物</view>
+    </view>
+    <view class="user-arrow">›</view>
+  </view>
+
   <view class="search-bar">
     <input class="search-input" placeholder="搜索二手物品" value="{{keyword}}" bindinput="onKeywordInput" bindconfirm="onSearch" />
     <view class="search-btn" bindtap="onSearch">搜索</view>
