@@ -33,6 +33,12 @@ Page({
     });
   },
 
+  onStats() {
+    wx.navigateTo({
+      url: '/pages/stats/index',
+    });
+  },
+
   onAbout() {
     wx.showModal({
       title: '关于我们',

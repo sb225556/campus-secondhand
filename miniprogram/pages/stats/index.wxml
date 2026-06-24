@@ -1,0 +1,111 @@
+<view class="container">
+  <!-- 概览卡片 -->
+  <view class="overview-grid">
+    <view class="overview-card">
+      <text class="card-value">{{stats.totalItems}}</text>
+      <text class="card-label">发布总数</text>
+    </view>
+    <view class="overview-card">
+      <text class="card-value">{{stats.totalFavorites}}</text>
+      <text class="card-label">收藏总数</text>
+    </view>
+    <view class="overview-card">
+      <text class="card-value">¥{{stats.avgPrice}}</text>
+      <text class="card-label">平均价格</text>
+    </view>
+    <view class="overview-card">
+      <text class="card-value">¥{{stats.totalValue}}</text>
+      <text class="card-label">总价值</text>
+    </view>
+  </view>
+
+  <!-- 本月数据 -->
+  <view class="section">
+    <view class="section-title">本月数据</view>
+    <view class="month-stats">
+      <view class="month-item">
+        <text class="month-value">{{stats.monthItems}}</text>
+        <text class="month-label">本月发布</text>
+      </view>
+      <view class="month-divider"></view>
+      <view class="month-item">
+        <text class="month-value">{{stats.monthFavorites}}</text>
+        <text class="month-label">本月收藏</text>
+      </view>
+      <view class="month-divider"></view>
+      <view class="month-item">
+        <text class="month-value">¥{{stats.monthValue}}</text>
+        <text class="month-label">本月价值</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分类统计 -->
+  <view class="section">
+    <view class="section-title">分类统计</view>
+    <view class="section-body" wx:if="{{stats.categoryStats.length > 0}}">
+      <view class="category-bar" wx:for="{{stats.categoryStats}}" wx:key="category">
+        <view class="category-name">{{item.category}}</view>
+        <view class="category-progress">
+          <view class="category-fill" style="width: {{item.percentage}}%"></view>
+        </view>
+        <view class="category-info">
+          <text class="info-count">{{item.count}}件</text>
+          <text class="info-avg">均价¥{{item.avgPrice}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="empty-block" wx:else>
+      <text class="empty-text">暂无分类数据</text>
+    </view>
+  </view>
+
+  <!-- 7天趋势 -->
+  <view class="section">
+    <view class="section-title">最近7天发布</view>
+    <view class="section-body" wx:if="{{hasTrend}}">
+      <view class="trend-chart">
+        <view class="trend-bar" wx:for="{{stats.weekTrend}}" wx:key="date">
+          <view class="trend-value">{{item.count}}</view>
+          <view class="trend-fill-wrap">
+            <view class="trend-fill" style="height: {{item.percentage}}%"></view>
+          </view>
+          <text class="trend-date">{{item.dateLabel}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="empty-block" wx:else>
+      <text class="empty-text">最近7天暂无发布</text>
+    </view>
+  </view>
+
+  <!-- 状态分布 -->
+  <view class="section">
+    <view class="section-title">状态分布</view>
+    <view class="section-body">
+      <view class="status-item">
+        <view class="status-label-row">
+          <text class="status-label">在售</text>
+          <text class="status-value">{{stats.statusStats.onSale}}</text>
+        </view>
+        <view class="status-bar">
+          <view class="status-fill on-sale" style="width: {{stats.statusStats.onSalePercent}}%"></view>
+        </view>
+      </view>
+      <view class="status-item">
+        <view class="status-label-row">
+          <text class="status-label">已售</text>
+          <text class="status-value">{{stats.statusStats.sold}}</text>
+        </view>
+        <view class="status-bar">
+          <view class="status-fill sold" style="width: {{stats.statusStats.soldPercent}}%"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部说明 -->
+  <view class="footer-tip">
+    <text>数据基于云端存储，换设备登录数据一致</text>
+  </view>
+</view>

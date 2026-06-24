@@ -7,7 +7,7 @@ cloud.init({
 const db = cloud.database();
 
 exports.main = async (event, context) => {
-  const { category, keyword, pageSize = 10, pageNum = 1 } = event;
+  const { category, keyword, pageSize = 10, pageNum = 1, sortBy = 'createTime', sortOrder = 'desc' } = event;
 
   try {
     let query = db.collection('items').where({
@@ -34,7 +34,7 @@ exports.main = async (event, context) => {
     const total = countResult.total;
 
     const list = await query
-      .orderBy('createTime', 'desc')
+      .orderBy(sortBy, sortOrder)
       .skip((pageNum - 1) * pageSize)
       .limit(pageSize)
       .get();

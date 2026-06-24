@@ -4,6 +4,8 @@ Page({
   data: {
     keyword: '',
     currentCategory: '',
+    currentTimeRange: 'all',
+    sortOrder: 'desc',
     categories: [
       { name: '数码产品' },
       { name: '图书教材' },
@@ -11,6 +13,12 @@ Page({
       { name: '运动户外' },
       { name: '服饰鞋包' },
       { name: '其他' },
+    ],
+    timeRanges: [
+      { value: 'all', label: '全部' },
+      { value: 'today', label: '今日' },
+      { value: 'week', label: '本周' },
+      { value: 'month', label: '本月' },
     ],
     items: [],
     pageNum: 1,
@@ -88,6 +96,44 @@ Page({
     this.loadItems();
   },
 
+  onTimeRangeChange(e) {
+    const range = e.currentTarget.dataset.range;
+    this.setData({
+      currentTimeRange: range,
+      pageNum: 1,
+      items: [],
+      hasMore: true,
+    });
+    this.loadItems();
+  },
+
+  onSortToggle() {
+    const newOrder = this.data.sortOrder === 'desc' ? 'asc' : 'desc';
+    this.setData({
+      sortOrder: newOrder,
+      pageNum: 1,
+      items: [],
+      hasMore: true,
+    });
+    this.loadItems();
+  },
+
+  getTimeRangeStart() {
+    const now = new Date();
+    const range = this.data.currentTimeRange;
+    if (range === 'today') {
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    }
+    if (range === 'week') {
+      const day = now.getDay() || 7;
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate() - day + 1).getTime();
+    }
+    if (range === 'month') {
+      return new Date(now.getFullYear(), now.getMonth(), 1).getTime();
+    }
+    return 0;
+  },
+
   async loadItems() {
     if (this.data.loading) return;
 
@@ -101,11 +147,17 @@ Page({
           keyword: this.data.keyword || undefined,
           pageNum: this.data.pageNum,
           pageSize: this.data.pageSize,
+          sortBy: 'createTime',
+          sortOrder: this.data.sortOrder,
         },
       });
 
       if (result.result.success) {
-        const newItems = result.result.list;
+        let newItems = result.result.list;
+        const rangeStart = this.getTimeRangeStart();
+        if (rangeStart > 0) {
+          newItems = newItems.filter(item => (item.createTime || 0) >= rangeStart);
+        }
         this.setData({
           items: this.data.pageNum === 1 ? newItems : [...this.data.items, ...newItems],
           hasMore: newItems.length === this.data.pageSize,

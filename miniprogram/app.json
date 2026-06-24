@@ -5,7 +5,8 @@
     "pages/mine/index",
     "pages/detail/index",
     "pages/my-items/index",
-    "pages/my-favorites/index"
+    "pages/my-favorites/index",
+    "pages/stats/index"
   ],
   "window": {
     "backgroundColor": "#F5F5F5",

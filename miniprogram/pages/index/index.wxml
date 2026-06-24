@@ -6,24 +6,42 @@
 
   <scroll-view class="category-scroll" scroll-x>
     <view class="category-list">
-      <view 
-        class="category-item {{currentCategory === '' ? 'active' : ''}}" 
-        bindtap="onCategoryChange" 
+      <view
+        class="category-item {{currentCategory === '' ? 'active' : ''}}"
+        bindtap="onCategoryChange"
         data-category=""
       >
         全部
       </view>
-      <view 
-        wx:for="{{categories}}" 
+      <view
+        wx:for="{{categories}}"
         wx:key="name"
-        class="category-item {{currentCategory === item.name ? 'active' : ''}}" 
-        bindtap="onCategoryChange" 
+        class="category-item {{currentCategory === item.name ? 'active' : ''}}"
+        bindtap="onCategoryChange"
         data-category="{{item.name}}"
       >
         {{item.name}}
       </view>
     </view>
   </scroll-view>
+
+  <view class="filter-bar">
+    <view class="time-range">
+      <view
+        wx:for="{{timeRanges}}"
+        wx:key="value"
+        class="time-item {{currentTimeRange === item.value ? 'active' : ''}}"
+        bindtap="onTimeRangeChange"
+        data-range="{{item.value}}"
+      >
+        {{item.label}}
+      </view>
+    </view>
+    <view class="sort-btn" bindtap="onSortToggle">
+      <text>{{sortOrder === 'desc' ? '最新' : '最早'}}</text>
+      <text class="sort-icon {{sortOrder === 'desc' ? 'down' : 'up'}}">▾</text>
+    </view>
+  </view>
 
   <scroll-view 
     class="item-list" 
